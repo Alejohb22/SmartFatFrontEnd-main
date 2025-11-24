@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartFat - Login</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <div class="logo">
+                <img src="resources/icons/gordito.png" alt="SmartFit Logo">
+                <h1>SmartFat</h1>
+                <p>Tu compañero de entrenamiento</p>
+            </div>
+
+            <!-- Formulario de Login -->
+            <div id="loginForm" class="form-content active">
+                <h2>Iniciar Sesión</h2>
+                <form onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="loginEmail">Correo electrónico</label>
+                        <input type="email" id="loginEmail" required placeholder="tu@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Contraseña</label>
+                        <input type="password" id="loginPassword" required placeholder="••••••••">
+                    </div>
+                    <button type="submit" class="btn-primary">Iniciar Sesión</button>
+                </form>
+                <p class="toggle-form">
+                    ¿No tienes cuenta? <a href="#" onclick="toggleForms()">Regístrate aquí</a>
+                </p>
+            </div>
+
+            <!-- Formulario de Registro -->
+            <div id="registerForm" class="form-content">
+                <h2>Crear Cuenta</h2>
+                <form onsubmit="handleRegister(event)">
+                    <div class="form-group">
+                        <label for="registerName">Nombre completo</label>
+                        <input type="text" id="registerName" required placeholder="Juan Pérez">
+                    </div>
+                    <div class="form-group">
+                        <label for="registerEmail">Correo electrónico</label>
+                        <input type="email" id="registerEmail" required placeholder="tu@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">Contraseña</label>
+                        <input type="password" id="registerPassword" required placeholder="Mínimo 6 caracteres">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="registerAge">Edad</label>
+                            <input type="number" id="registerAge" placeholder="25">
+                        </div>
+                        <div class="form-group">
+                            <label for="registerWeight">Peso (kg)</label>
+                            <input type="number" step="0.1" id="registerWeight" placeholder="70">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerHeight">Altura (m)</label>
+                        <input type="number" step="0.01" id="registerHeight" placeholder="1.75">
+                    </div>
+                    <button type="submit" class="btn-primary">Registrarse</button>
+                </form>
+                <p class="toggle-form">
+                    ¿Ya tienes cuenta? <a href="#" onclick="toggleForms()">Inicia sesión aquí</a>
+                </p>
+            </div>
+
+            <div id="message" class="message"></div>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+</body>
+</html>

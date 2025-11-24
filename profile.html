@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartFat - Mi Perfil</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Overlay para cerrar el menú al hacer clic fuera -->
+        <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+        
+        <!-- Menú Lateral Deslizable -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <img src="resources/icons/gordito.png" alt="SmartFit Logo" class="logo-img">
+                    <h2>SmartFat</h2>
+                </div>
+                <button class="btn-close-sidebar" onclick="toggleSidebar()">✕</button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="sidebar-link">
+                    <span class="sidebar-icon">📋</span>
+                    <span>Mis Rutinas</span>
+                </a>
+                <a href="create-rutine.html" class="sidebar-link">
+                    <span class="sidebar-icon">➕</span>
+                    <span>Nueva Rutina</span>
+                </a>
+                <a href="#" class="sidebar-link" onclick="alert('Función en desarrollo')">
+                    <span class="sidebar-icon">📊</span>
+                    <span>Estadísticas</span>
+                </a>
+                <a href="profile.html" class="sidebar-link active">
+                    <span class="sidebar-icon">👤</span>
+                    <span>Mi Perfil</span>
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-info-sidebar">
+                    <div class="user-avatar">👤</div>
+                    <div class="user-details">
+                        <p class="user-name-sidebar" id="userNameSidebar">Usuario</p>
+                        <p class="user-email" id="userEmailSidebar">email@example.com</p>
+                    </div>
+                </div>
+                <button class="btn-logout-sidebar" onclick="logout()">
+                    <span>🚪</span> Cerrar Sesión
+                </button>
+            </div>
+        </aside>
+
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="navbar-content">
+                <button class="btn-menu-toggle" onclick="toggleSidebar()">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                <div class="logo-container">
+                    <img src="resources/icons/gordito.png" alt="SmartFit Logo" class="logo-img">
+                    <h1>SmartFat</h1>
+                </div>
+                <div class="user-info">
+                    <span class="user-name" id="userName">Usuario</span>
+                    <button class="btn-logout" onclick="logout()">Cerrar Sesión</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Contenido Principal -->
+        <main class="main-content">
+            <div class="section-header">
+                <h2>Mi Perfil</h2>
+            </div>
+
+            <!-- Perfil de Usuario -->
+            <div class="profile-container">
+                <!-- Tarjeta de Avatar y Resumen -->
+                <div class="profile-card profile-summary">
+                    <div class="profile-avatar-large">
+                        <span id="avatarInitial">U</span>
+                    </div>
+                    <h2 id="profileName">Cargando...</h2>
+                    <p id="profileEmail" class="profile-email-text">email@example.com</p>
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <span class="stat-value" id="statRoutines">0</span>
+                            <span class="stat-label">Rutinas</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" id="statWorkouts">0</span>
+                            <span class="stat-label">Entrenamientos</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tarjeta de Información Personal -->
+                <div class="profile-card">
+                    <div class="profile-card-header">
+                        <h3>📋 Información Personal</h3>
+                        <button class="btn-edit-toggle" onclick="toggleEditMode()" id="btnEditToggle">
+                            ✏️ Editar
+                        </button>
+                    </div>
+                    
+                    <form id="profileForm" class="profile-form">
+                        <div class="form-group">
+                            <label for="editName">Nombre completo</label>
+                            <input type="text" id="editName" disabled required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="editEmail">Correo electrónico</label>
+                            <input type="email" id="editEmail" disabled required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="editAge">Edad</label>
+                                <input type="number" id="editAge" disabled placeholder="Ej: 25">
+                            </div>
+                            <div class="form-group">
+                                <label for="editWeight">Peso (kg)</label>
+                                <input type="number" step="0.1" id="editWeight" disabled placeholder="Ej: 70">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="editHeight">Altura (m)</label>
+                            <input type="number" step="0.01" id="editHeight" disabled placeholder="Ej: 1.75">
+                        </div>
+
+                        <!-- Botones de acción (ocultos por defecto) -->
+                        <div id="editActions" class="edit-actions" style="display: none;">
+                            <button type="button" class="btn-cancel" onclick="cancelEdit()">
+                                Cancelar
+                            </button>
+                            <button type="submit" class="btn-save">
+                                💾 Guardar Cambios
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Tarjeta de Métricas Calculadas -->
+                <div class="profile-card">
+                    <div class="profile-card-header">
+                        <h3>📊 Métricas</h3>
+                    </div>
+                    
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-icon">⚖️</div>
+                            <div class="metric-info">
+                                <span class="metric-label">IMC</span>
+                                <span class="metric-value" id="metricIMC">--</span>
+                                <span class="metric-status" id="metricIMCStatus">-</span>
+                            </div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-icon">🎯</div>
+                            <div class="metric-info">
+                                <span class="metric-label">Peso Ideal</span>
+                                <span class="metric-value" id="metricIdealWeight">-- kg</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tarjeta de Cambiar Contraseña -->
+                <div class="profile-card">
+                    <div class="profile-card-header">
+                        <h3>🔒 Seguridad</h3>
+                    </div>
+                    
+                    <form id="passwordForm" class="profile-form">
+                        <div class="form-group">
+                            <label for="currentPassword">Contraseña actual</label>
+                            <input type="password" id="currentPassword" placeholder="••••••••">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="newPassword">Nueva contraseña</label>
+                            <input type="password" id="newPassword" placeholder="Mínimo 6 caracteres">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirmar contraseña</label>
+                            <input type="password" id="confirmPassword" placeholder="Repite la nueva contraseña">
+                        </div>
+
+                        <button type="submit" class="btn-primary">
+                            🔐 Cambiar Contraseña
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="message" class="message"></div>
+        </main>
+    </div>
+
+    <script src="profile.js"></script>
+</body>
+</html>

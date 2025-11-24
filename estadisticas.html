@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartFat - Estadísticas</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Overlay para cerrar el menú al hacer clic fuera -->
+        <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+        
+        <!-- Menú Lateral Deslizable -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <img src="resources/icons/gordito.png" alt="SmartFit Logo" class="logo-img">
+                    <h2>SmartFit</h2>
+                </div>
+                <button class="btn-close-sidebar" onclick="toggleSidebar()">✕</button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="sidebar-link">
+                    <span class="sidebar-icon">📋</span>
+                    <span>Mis Rutinas</span>
+                </a>
+                <a href="create-rutine.html" class="sidebar-link">
+                    <span class="sidebar-icon">➕</span>
+                    <span>Nueva Rutina</span>
+                </a>
+                <a href="estadisticas.html" class="sidebar-link active">
+                    <span class="sidebar-icon">📊</span>
+                    <span>Estadísticas</span>
+                </a>
+                <a href="profile.html" class="sidebar-link">
+                    <span class="sidebar-icon">👤</span>
+                    <span>Mi Perfil</span>
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-info-sidebar">
+                    <div class="user-avatar">👤</div>
+                    <div class="user-details">
+                        <p class="user-name-sidebar" id="userNameSidebar">Usuario</p>
+                        <p class="user-email" id="userEmailSidebar">email@example.com</p>
+                    </div>
+                </div>
+                <button class="btn-logout-sidebar" onclick="logout()">
+                    <span>🚪</span> Cerrar Sesión
+                </button>
+            </div>
+        </aside>
+
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="navbar-content">
+                <button class="btn-menu-toggle" onclick="toggleSidebar()">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                <div class="logo-container">
+                    <img src="resources/icons/gordito.png" alt="SmartFit Logo" class="logo-img">
+                    <h1>SmartFat</h1>
+                </div>
+                <div class="user-info">
+                    <span class="user-name" id="userName">Usuario</span>
+                    <button class="btn-logout" onclick="logout()">Cerrar Sesión</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Contenido Principal -->
+        <main class="main-content">
+            <div class="section-header">
+                <h2>📊 Mis Estadísticas</h2>
+            </div>
+
+            <!-- Resumen General -->
+            <div class="stats-overview">
+                <div class="stat-card stat-primary">
+                    <div class="stat-icon">🏋️</div>
+                    <div class="stat-content">
+                        <p class="stat-label">Total de Rutinas</p>
+                        <h3 class="stat-value" id="totalRutinas">0</h3>
+                        <p class="stat-subtitle">Creadas</p>
+                    </div>
+                </div>
+
+                <div class="stat-card stat-success">
+                    <div class="stat-icon">💪</div>
+                    <div class="stat-content">
+                        <p class="stat-label">Ejercicios Diferentes</p>
+                        <h3 class="stat-value" id="ejerciciosDiferentes">0</h3>
+                        <p class="stat-subtitle">Variedad</p>
+                    </div>
+                </div>
+
+                <div class="stat-card stat-warning">
+                    <div class="stat-icon">🔢</div>
+                    <div class="stat-content">
+                        <p class="stat-label">Total de Series</p>
+                        <h3 class="stat-value" id="totalSeries">0</h3>
+                        <p class="stat-subtitle">Completadas</p>
+                    </div>
+                </div>
+
+                <div class="stat-card stat-info">
+                    <div class="stat-icon">🎯</div>
+                    <div class="stat-content">
+                        <p class="stat-label">Total Repeticiones</p>
+                        <h3 class="stat-value" id="totalRepeticiones">0</h3>
+                        <p class="stat-subtitle">Realizadas</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Última Sesión -->
+            <div class="stats-section">
+                <div class="stats-card">
+                    <div class="stats-card-header">
+                        <h3>📅 Última Sesión</h3>
+                    </div>
+                    <div class="stats-card-body">
+                        <div class="last-session" id="lastSessionInfo">
+                            <div class="loading">
+                                <div class="spinner"></div>
+                                <p>Cargando información...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progreso por Ejercicio -->
+            <div class="stats-section">
+                <div class="stats-card">
+                    <div class="stats-card-header">
+                        <h3>📈 Progreso por Ejercicio</h3>
+                        <p class="stats-subtitle">Pesos máximos registrados</p>
+                    </div>
+                    <div class="stats-card-body">
+                        <div id="progresoEjercicios" class="progreso-container">
+                            <div class="loading">
+                                <div class="spinner"></div>
+                                <p>Cargando progreso...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Historial Reciente -->
+            <div class="stats-section">
+                <div class="stats-card">
+                    <div class="stats-card-header">
+                        <h3>🕐 Historial Reciente</h3>
+                        <p class="stats-subtitle">Últimos 20 registros</p>
+                    </div>
+                    <div class="stats-card-body">
+                        <div id="historialReciente" class="historial-container">
+                            <div class="loading">
+                                <div class="spinner"></div>
+                                <p>Cargando historial...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Distribución por Grupo Muscular -->
+            <div class="stats-section">
+                <div class="stats-card">
+                    <div class="stats-card-header">
+                        <h3>🎯 Grupos Musculares Trabajados</h3>
+                        <p class="stats-subtitle">Distribución de entrenamientos</p>
+                    </div>
+                    <div class="stats-card-body">
+                        <div id="gruposMusculares" class="grupos-container">
+                            <div class="loading">
+                                <div class="spinner"></div>
+                                <p>Analizando datos...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="message" class="message"></div>
+        </main>
+    </div>
+
+    <script src="estadisticas.js"></script>
+</body>
+</html>

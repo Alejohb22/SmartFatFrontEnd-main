@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartFat - Mis Rutinas</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Overlay para cerrar el menú al hacer clic fuera -->
+        <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+        
+        <!-- Menú Lateral Deslizable -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <img src="resources/icons/gordito.png" alt="SmartFit Logo" class="logo-img">
+                    <h2>SmartFat</h2>
+                </div>
+                <button class="btn-close-sidebar" onclick="toggleSidebar()">✕</button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="sidebar-link active">
+                    <span class="sidebar-icon">📋</span>
+                    <span>Mis Rutinas</span>
+                </a>
+                <a href="create-rutine.html" class="sidebar-link">
+                    <span class="sidebar-icon">➕</span>
+                    <span>Nueva Rutina</span>
+                </a>
+                <a href="estadisticas.html" class="sidebar-link">
+                    <span class="sidebar-icon">📊</span>
+                    <span>Estadísticas</span>
+                </a>
+                <a href="profile.html" class="sidebar-link">
+                    <span class="sidebar-icon">👤</span>
+                    <span>Mi Perfil</span>
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-info-sidebar">
+                    <div class="user-avatar">👤</div>
+                    <div class="user-details">
+                        <p class="user-name-sidebar" id="userNameSidebar">Usuario</p>
+                        <p class="user-email" id="userEmailSidebar">email@example.com</p>
+                    </div>
+                </div>
+                <button class="btn-logout-sidebar" onclick="logout()">
+                    <span>🚪</span> Cerrar Sesión
+                </button>
+            </div>
+        </aside>
+
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="navbar-content">
+                <button class="btn-menu-toggle" onclick="toggleSidebar()">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                <div class="logo-container">
+                    <img src="resources/icons/gordito.png" alt="SmartFit Logo" class="logo-img">
+                    <h1>SmartFat</h1>
+                </div>
+                <div class="user-info">
+                    <span class="user-name" id="userName">Usuario</span>
+                    <button class="btn-logout" onclick="logout()">Cerrar Sesión</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Contenido Principal -->
+        <main class="main-content">
+            <div class="section-header">
+                <h2>Mis Rutinas</h2>
+                <button class="btn-add" onclick="openAddRoutineModal()">
+                    <img src="resources/icons/agregar.png" alt="Agregar">
+                    Nueva Rutina
+                </button>
+            </div>
+
+            <!-- Grid de Rutinas -->
+            <div id="routinesContainer" class="routines-grid">
+                <!-- Las rutinas se cargarán aquí dinámicamente -->
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Cargando rutinas...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

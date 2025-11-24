@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartFat - Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Overlay del Sidebar -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- Sidebar Menu -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2 id="sidebarUserName">Usuario</h2>
+            <p>Tu perfil y estadísticas</p>
+            <button class="sidebar-close" onclick="toggleSidebar()">✕</button>
+        </div>
+        
+        <nav class="sidebar-menu">
+            <a href="#" class="sidebar-menu-item" onclick="showProfile(); return false;">
+                <span class="icon">👤</span>
+                <span class="label">Mi Perfil</span>
+            </a>
+            
+            <a href="#" class="sidebar-menu-item" onclick="showStats(); return false;">
+                <span class="icon">📊</span>
+                <span class="label">Estadísticas</span>
+            </a>
+            
+            <div class="sidebar-divider"></div>
+            
+            <a href="dashboard.html" class="sidebar-menu-item">
+                <span class="icon">🏋️</span>
+                <span class="label">Mis Rutinas</span>
+            </a>
+            
+            <div class="sidebar-divider"></div>
+            
+            <a href="#" class="sidebar-menu-item" onclick="logout(); return false;">
+                <span class="icon">🚪</span>
+                <span class="label">Cerrar Sesión</span>
+            </a>
+        </nav>
+    </aside>
+
+    <div class="dashboard-container">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="navbar-content">
+                <div class="logo-container">
+                    <img src="resources/icons/gordito.png" alt="SmartFit Logo" class="logo-img">
+                    <h1>SmartFat</h1>
+                </div>
+                <div class="user-info">
+                    <span class="user-name" id="userName">Usuario</span>
+                    <button class="btn-logout" onclick="endWorkout()">Finalizar</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Contenido Principal -->
+        <main class="main-content">
+            <!-- Header de la Rutina -->
+            <div class="workout-header">
+                <div>
+                    <h2 id="routineName">Cargando rutina...</h2>
+                    <p class="workout-info">
+                        <span id="completedSets">0</span> / <span id="totalSets">0</span> series completadas
+                    </p>
+                </div>
+                <div class="workout-timer">
+                    <div class="timer-display">
+                        ⏱️ <span id="workoutTimer">00:00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cronómetro de Descanso -->
+            <div id="restTimer" class="rest-timer-container hidden">
+                <div class="rest-timer-content">
+                    <h3>💪 Descanso</h3>
+                    <div class="rest-timer-display">
+                        <span id="restTimerDisplay">00:00</span>
+                    </div>
+                    <div class="rest-timer-controls">
+                        <button class="btn-rest" onclick="skipRest()">Saltar</button>
+                        <button class="btn-rest" onclick="addRestTime(15)">+15s</button>
+                        <button class="btn-rest" onclick="addRestTime(30)">+30s</button>
+                    </div>
+                    <p class="rest-next-exercise">
+                        Siguiente: <span id="nextExerciseName">-</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Lista de Ejercicios -->
+            <div id="exercisesContainer" class="workout-exercises">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Cargando rutina...</p>
+                </div>
+            </div>
+
+            <!-- Botón de Finalizar -->
+            <div class="workout-actions">
+                <button class="btn-finish-workout" onclick="confirmEndWorkout()">
+                    ✓ Finalizar Entrenamiento
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal de Confirmación -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Finalizar Entrenamiento</h2>
+            </div>
+            <p style="margin: 20px 0; color: var(--text-dark);">
+                ¿Estás seguro de que quieres finalizar el entrenamiento?
+            </p>
+            <p style="margin: 20px 0; font-size: 0.9rem; color: var(--text-light);">
+                Se guardará tu progreso automáticamente.
+            </p>
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="btn-cancel" onclick="closeConfirmModal()" style="flex: 1;">
+                    Cancelar
+                </button>
+                <button class="btn-danger" onclick="finishWorkout()" style="flex: 1;">
+                    Finalizar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="message" class="message"></div>
+
+    <script src="workout.js"></script>
+</body>
+</html>

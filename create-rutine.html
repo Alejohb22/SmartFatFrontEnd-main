@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartFat - Crear Rutina</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="navbar-content">
+                <div class="logo-container">
+                    <img src="resources/icons/gordito.png" alt="SmartFit Logo" class="logo-img">
+                    <h1>SmartFat</h1>
+                </div>
+                <div class="user-info">
+                    <span class="user-name" id="userName">Usuario</span>
+                    <button class="btn-logout" onclick="logout()">Cerrar Sesión</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Contenido Principal -->
+        <main class="main-content">
+            <div class="section-header">
+                <h2>Crear Nueva Rutina</h2>
+            </div>
+
+            <!-- Información de la Rutina -->
+            <div class="routine-builder">
+                <h2>📝 Información de la Rutina</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="routineName">Nombre de la rutina *</label>
+                        <input type="text" id="routineName" required placeholder="Ej: Día de Pecho y Tríceps">
+                    </div>
+                    <div class="form-group">
+                        <label for="routineDate">Fecha (opcional)</label>
+                        <input type="date" id="routineDate">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Listado de Ejercicios Disponibles -->
+            <div class="routine-builder">
+                <h2>💪 Agregar Ejercicios</h2>
+                
+                <div class="exercise-search">
+                    <input 
+                        type="text" 
+                        id="searchExercise" 
+                        class="search-input" 
+                        placeholder="Buscar ejercicio..."
+                        oninput="filterExercises()">
+                    <select id="muscleFilter" class="filter-select" onchange="filterExercises()">
+                        <option value="">Todos los grupos musculares</option>
+                        <option value="Pecho">Pecho</option>
+                        <option value="Espalda">Espalda</option>
+                        <option value="Hombros">Hombros</option>
+                        <option value="Bíceps">Bíceps</option>
+                        <option value="Tríceps">Tríceps</option>
+                        <option value="Piernas">Piernas</option>
+                        <option value="Abdomen">Abdomen</option>
+                        <option value="Cardio">Cardio</option>
+                    </select>
+                </div>
+
+                <div id="exercisesGrid" class="exercises-grid">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <p>Cargando ejercicios...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ejercicios Seleccionados -->
+            <div class="routine-builder">
+                <h2>✅ Ejercicios de la Rutina</h2>
+                <div id="selectedExercises" class="selected-exercises">
+                    <div class="empty-exercises">
+                        <p>No has agregado ejercicios aún. Selecciona ejercicios de la lista superior.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botones de Acción -->
+            <div class="action-buttons">
+                <button class="btn-cancel" onclick="cancelRoutine()">Cancelar</button>
+                <button class="btn-save" onclick="saveRoutine()">Guardar Rutina</button>
+            </div>
+
+            <div id="message" class="message"></div>
+        </main>
+    </div>
+
+    <!-- ⚠️ CORREGIDO: El nombre del archivo debe coincidir -->
+    <script src="create-rutine.js"></script>
+</body>
+</html>
