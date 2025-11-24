@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartFat - Editar Rutina</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="navbar-content">
+                <div class="logo-container">
+                    <img src="resources/icons/gordito.png" alt="SmartFit Logo" class="logo-img">
+                    <h1>SmartFat</h1>
+                </div>
+                <div class="user-info">
+                    <span class="user-name" id="userName">Usuario</span>
+                    <button class="btn-logout" onclick="logout()" title="Cerrar sesión">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <polyline points="16 17 21 12 16 7"></polyline>
+                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Contenido Principal -->
+        <main class="main-content">
+            <div class="section-header">
+                <h2>✏️ Editar Rutina</h2>
+                <button class="btn-cancel" onclick="cancelEdit()">
+                    ← Volver al Dashboard
+                </button>
+            </div>
+
+            <!-- Información de la Rutina -->
+            <div class="routine-builder">
+                <h2>📝 Información de la Rutina</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="routineName">Nombre de la rutina *</label>
+                        <input type="text" id="routineName" required placeholder="Ej: Día de Pecho y Tríceps">
+                    </div>
+                    <div class="form-group">
+                        <label for="routineDate">Fecha (opcional)</label>
+                        <input type="date" id="routineDate">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ejercicios Actuales de la Rutina -->
+            <div class="routine-builder">
+                <h2>💪 Ejercicios de la Rutina</h2>
+                <div id="currentExercises" class="selected-exercises">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <p>Cargando ejercicios...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Agregar Nuevos Ejercicios -->
+            <div class="routine-builder">
+                <h2>➕ Agregar Más Ejercicios</h2>
+                
+                <div class="exercise-search">
+                    <input 
+                        type="text" 
+                        id="searchExercise" 
+                        class="search-input" 
+                        placeholder="Buscar ejercicio..."
+                        oninput="filterExercises()">
+                    <select id="muscleFilter" class="filter-select" onchange="filterExercises()">
+                        <option value="">Todos los grupos musculares</option>
+                        <option value="Pecho">Pecho</option>
+                        <option value="Espalda">Espalda</option>
+                        <option value="Hombros">Hombros</option>
+                        <option value="Bíceps">Bíceps</option>
+                        <option value="Tríceps">Tríceps</option>
+                        <option value="Piernas">Piernas</option>
+                        <option value="Abdomen">Abdomen</option>
+                        <option value="Cardio">Cardio</option>
+                    </select>
+                </div>
+
+                <div id="exercisesGrid" class="exercises-grid">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <p>Cargando ejercicios disponibles...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botones de Acción -->
+            <div class="action-buttons">
+                <button class="btn-cancel" onclick="cancelEdit()">Cancelar</button>
+                <button class="btn-save" onclick="saveRoutine()">💾 Guardar Cambios</button>
+            </div>
+
+            <div id="message" class="message"></div>
+        </main>
+    </div>
+
+    <!-- Modal de Confirmación para Eliminar Serie -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Eliminar Serie</h2>
+            </div>
+            <p style="margin: 20px 0; color: var(--text-dark);">
+                ¿Estás seguro de que quieres eliminar esta serie?
+            </p>
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="btn-cancel" onclick="closeDeleteModal()" style="flex: 1;">
+                    Cancelar
+                </button>
+                <button class="btn-danger" onclick="confirmDeleteSerie()" style="flex: 1;">
+                    Eliminar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="edit-routine.js"></script>
+</body>
+</html>

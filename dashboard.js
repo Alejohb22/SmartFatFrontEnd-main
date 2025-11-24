@@ -196,3 +196,50 @@ async function deleteRoutine(id_rutina, nombre) {
         alert('Error de conexión');
     }
 }
+// Agregar esta función en tu dashboard.js
+
+function editRoutine(id) {
+    window.location.href = `edit-routine.html?id=${id}`;
+}
+
+// Y en la función displayRoutines(), cambia el botón de editar a:
+
+function displayRoutines(rutinas) {
+    const container = document.getElementById('routinesContainer');
+    
+    if (rutinas.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <div class="empty-state-icon">🏋️</div>
+                <h3>No tienes rutinas aún</h3>
+                <p>Comienza creando tu primera rutina de entrenamiento</p>
+                <button class="btn-add" onclick="window.location.href='create-rutine.html'">
+                    <img src="resources/icons/agregar.png" alt="Agregar">
+                    Nueva Rutina
+                </button>
+            </div>
+        `;
+        return;
+    }
+
+    container.innerHTML = rutinas.map(rutina => `
+        <div class="routine-card">
+            <h3>${rutina.nombre}</h3>
+            <p class="routine-date">
+                ${rutina.fecha ? new Date(rutina.fecha).toLocaleDateString('es-ES') : 'Sin fecha'}
+            </p>
+            <div class="routine-actions">
+                <button class="btn-small btn-start" onclick="startWorkout(${rutina.id_rutina})">
+                    <img src="resources/icons/play.png" alt="Iniciar">
+                    Iniciar
+                </button>
+                <button class="btn-small btn-edit" onclick="editRoutine(${rutina.id_rutina})">
+                    ✏️ Editar
+                </button>
+                <button class="btn-small btn-delete-small" onclick="confirmDelete(${rutina.id_rutina})">
+                    🗑️
+                </button>
+            </div>
+        </div>
+    `).join('');
+}
